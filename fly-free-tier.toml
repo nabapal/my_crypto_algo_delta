@@ -1,0 +1,22 @@
+# Lightweight fly.toml for Free Tier
+app = 'my-crypto-algo-delta'
+primary_region = 'bom'
+
+[build]
+
+[env]
+  PORT = '8501'
+  STREAMLIT_SERVER_HEADLESS = 'true'
+  STREAMLIT_SERVER_ENABLE_CORS = 'false'
+
+[http_service]
+  internal_port = 8501
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[vm]
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 256  # Minimum for free tier
