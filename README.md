@@ -11,37 +11,25 @@
 - **⚙️ Configuration Management**: Easy strategy switching and parameter tuning
 - **📱 Responsive UI**: Professional Cryptomaty-inspired interface
 
-## 🚀 Deployment on Fly.io
+## 🚀 Deployment on Render.com
 
-### Prerequisites
-1. **Add Payment Method**: Go to [Fly.io Billing](https://fly.io/dashboard/nabapal-pal-gmail-com/billing) and add a credit card
-2. **Fly CLI**: Already installed ✅
+### Quick Deploy (Recommended)
+1. **Sign up** at [Render.com](https://render.com) with GitHub
+2. **New Web Service** → Connect repository: `nabapal/my_crypto_algo_delta`
+3. **Configure**:
+   ```
+   Name: crypto-trading-bot
+   Region: Singapore
+   Build Command: pip install -r requirements.txt
+   Start Command: streamlit run ui/trading_dashboard.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false
+   ```
+4. **Deploy** → Your app will be live at: `https://crypto-trading-bot-XXXX.onrender.com`
 
-### Quick Deploy
-```bash
-# Deploy to Fly.io
-flyctl deploy
-
-# Monitor your app
-flyctl logs
-flyctl status
-```
-
-### Manual Setup
-```bash
-# Launch app (if not done automatically)
-flyctl launch --no-deploy
-
-# Set environment variables (optional)
-flyctl secrets set API_KEY=your_api_key
-flyctl secrets set API_SECRET=your_api_secret
-
-# Deploy
-flyctl deploy
-
-# Open your app
-flyctl open
-```
+### Free Tier Benefits
+- ✅ **750 hours/month** free (24/7 for 31 days)
+- ✅ **No credit card required**
+- ✅ **Auto-deploy** from GitHub
+- ✅ **Custom domain** support
 
 ## 🏃‍♂️ Local Development
 
@@ -121,14 +109,14 @@ my_crypto_algo_delta/
 
 ## 🚀 Live Deployment URL
 
-Once deployed on Fly.io, your app will be available at:
-`https://my-crypto-algo-delta.fly.dev`
+Once deployed on Render.com, your app will be available at:
+`https://crypto-trading-bot-XXXX.onrender.com`
 
 ## 📞 Support
 
-For issues or questions:
-- Check the logs: `flyctl logs`
-- Monitor status: `flyctl status`
+For deployment issues:
+- Check [doc/RENDER_DEPLOY.md](doc/RENDER_DEPLOY.md) for detailed instructions
+- Monitor build logs in Render dashboard
 - Review documentation in `/doc`
 
 ---

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: crypto-trading-bot
+    env: python
+    region: singapore  # Closest to India
+    plan: free  # Use Render's free tier
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run ui/trading_dashboard.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: true
+      - key: STREAMLIT_SERVER_ENABLE_CORS
+        value: false
+    healthCheckPath: /_stcore/health
