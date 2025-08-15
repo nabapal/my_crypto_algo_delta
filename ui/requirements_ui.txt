@@ -1,0 +1,19 @@
+# Trading Dashboard UI Requirements
+
+# Core Streamlit
+streamlit>=1.28.0
+streamlit-autorefresh>=0.0.1
+
+# Data visualization
+plotly>=5.15.0
+
+# Data processing (already in main requirements)
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Additional UI components
+streamlit-aggrid>=0.3.4
+streamlit-option-menu>=0.3.6
+
+# Web utilities
+requests>=2.31.0

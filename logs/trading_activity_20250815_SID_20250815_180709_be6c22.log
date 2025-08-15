@@ -1,0 +1,15 @@
+2025-08-15 18:07:09,176 UTC - INFO - SESSION_START - {
+  "session_id": "SID_20250815_180709_be6c22",
+  "start_time_utc": "2025-08-15 18:07:09 UTC",
+  "strategy_config": {
+    "ema_short": 9,
+    "ema_long": 20,
+    "atr_period": 14,
+    "atr_multiplier": 0.5,
+    "risk_reward_ratio": 10,
+    "strategy_version": "v3",
+    "paper_capital": 500,
+    "max_risk_per_trade": 0.02
+  }
+}
+2025-08-15 18:07:09,763 UTC - INFO - TRADE_ENTRY - T_180709_4325 | SELL SHORT | Price: $117339.00 | Qty: 0.004846 BTC | SL: $119402.57 | TP: $96703.29 | Risk: $10.00
