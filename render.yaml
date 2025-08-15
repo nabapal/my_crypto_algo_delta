@@ -5,7 +5,7 @@ services:
     region: singapore  # Closest to India
     plan: free  # Use Render's free tier
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run ui/trading_dashboard.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false
+    startCommand: streamlit run ui/simple_dashboard.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
