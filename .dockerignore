@@ -1,0 +1,70 @@
+# Git
+.git
+.gitignore
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env
+pip-log.txt
+pip-delete-this-directory.txt
+.tox
+.coverage
+.coverage.*
+.pytest_cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Local development
+.local/
+local_config.py
+test_*.py
+debug_*.py
+
+# Logs and reports (will be generated in container)
+logs/*
+reports/*
+*.log
+performance_*.json
+session_*.json
+trades_*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Documentation
+README.md
+doc/
+archive/
+
+# Data (use mounted volumes in production)
+data/raw_data/*
+
+# Fly.io
+fly.toml

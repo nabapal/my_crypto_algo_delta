@@ -3,3 +3,7 @@ numpy
 matplotlib
 requests
 websocket-client
+streamlit
+plotly
+ta-lib
+scikit-learn
