@@ -131,6 +131,9 @@ dmypy.json
 # Trading Bot Specific Files
 # =========================
 
+# Archive folder (cleanup history)
+archive/
+
 # Sensitive Configuration Files
 config_live.py
 secrets.py
@@ -186,8 +189,10 @@ env/
 # Local Development
 .local/
 local_config.py
-test_*.py
-debug_*.py
+
+# Temporary test files (not organized tests)
+temp_test_*.py
+quick_debug_*.py
 
 # Performance Reports
 performance_*.json

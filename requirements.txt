@@ -1,11 +1,19 @@
+# Core Trading Bot Dependencies
 pandas==2.0.3
 numpy==1.24.3
-matplotlib==3.7.2
 requests==2.31.0
-websocket-client==1.6.1
-streamlit==1.25.0
-plotly==5.15.0
 yfinance==0.2.18
+websocket-client==1.6.1
 python-dateutil==2.8.2
 pytz==2023.3
+
+# Dashboard UI Dependencies
+streamlit==1.25.0
+plotly==5.15.0
+psutil==7.0.0
+
+# Optional: Chart generation (used by bot for analysis)
+matplotlib==3.7.2
+
+# Auto-refresh (only needed for trading_dashboard.py - can remove if using simple_dashboard only)
 streamlit-autorefresh==0.0.1

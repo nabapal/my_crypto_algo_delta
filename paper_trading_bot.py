@@ -311,6 +311,15 @@ class LogManager:
         self.error_logger.addHandler(error_handler)
         self.error_logger.setLevel(logging.ERROR)
         
+        # Console Output Logger - captures all console output
+        self.console_logger = logging.getLogger('Console')
+        console_output_handler = logging.FileHandler(f"{self.log_dir}/console_output_{log_suffix}.log", encoding='utf-8')
+        console_output_formatter = logging.Formatter('%(message)s')  # No timestamp, just the message
+        console_output_handler.setFormatter(console_output_formatter)
+        self.console_logger.addHandler(console_output_handler)
+        self.console_logger.setLevel(logging.INFO)
+        self.console_logger.propagate = False  # Don't propagate to avoid duplicates
+        
         # Console handler for real-time monitoring
         console_handler = logging.StreamHandler()
         console_formatter = logging.Formatter('%(asctime)s UTC - %(name)s - %(levelname)s - %(message)s')
@@ -320,6 +329,11 @@ class LogManager:
         # Add console handler to all loggers
         for logger in [self.api_logger, self.trading_logger, self.market_logger, self.error_logger]:
             logger.addHandler(console_handler)
+    
+    def log_console(self, message):
+        """Log console output to file while also printing to console"""
+        self.console_logger.info(message)
+        print(message)
 
 class RiskManager:
     """Handles risk management and position sizing"""
@@ -386,14 +400,30 @@ class PaperTradingBot:
         # Set up CSV files for trade reporting
         self.setup_trade_reporting()
         
-        print(f"\n{'='*80}")
-        print(f"🚀 PAPER TRADING BOT - SESSION: {self.session_manager.session_id}")
-        print(f"{'='*80}")
-        print(f"💰 Capital: ${PAPER_TRADING_CAPITAL}")
-        print(f"📊 Strategy: EMA({EMA_SHORT},{EMA_LONG}) + ATR({ATR_PERIOD}) - Version {STRATEGY_VERSION}")
-        print(f"⚖️ Risk per trade: {MAX_RISK_PER_TRADE*100}% | Risk-Reward: {RISK_REWARD_RATIO}:1")
-        print(f"🕐 Started: {self.session_manager.start_time.strftime('%Y-%m-%d %H:%M:%S UTC')}")
-        print(f"{'='*80}\n")
+        # Log startup messages to both console and file
+        startup_message = f"\n{'='*80}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"🚀 PAPER TRADING BOT - SESSION: {self.session_manager.session_id}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"{'='*80}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"💰 Capital: ${PAPER_TRADING_CAPITAL}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"📊 Strategy: EMA({EMA_SHORT},{EMA_LONG}) + ATR({ATR_PERIOD}) - Version {STRATEGY_VERSION}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"⚖️ Risk per trade: {MAX_RISK_PER_TRADE*100}% | Risk-Reward: {RISK_REWARD_RATIO}:1"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"🕐 Started: {self.session_manager.start_time.strftime('%Y-%m-%d %H:%M:%S UTC')}"
+        self.log_manager.log_console(startup_message)
+        
+        startup_message = f"{'='*80}\n"
+        self.log_manager.log_console(startup_message)
     
     def setup_trade_reporting(self):
         """Set up CSV files for trade reporting with session ID"""
@@ -882,9 +912,9 @@ class PaperTradingBot:
         minutes = int((time_in_position.total_seconds() % 3600) // 60)
         
         print(f"\n{'='*80}")
-        print(f"📊 POSITION STATUS - {utc_time}")
-        print(f"🌍 Local Time: {local_time}")
-        print(f"{'='*80}")
+        self.log_manager.log_console(f"📊 POSITION STATUS - {utc_time}")
+        self.log_manager.log_console(f"🌍 Local Time: {local_time}")
+        self.log_manager.log_console(f"{'='*80}")
         
         # Position Overview
         pnl_symbol = "📈" if status['unrealized_pnl'] >= 0 else "📉"
@@ -893,49 +923,49 @@ class PaperTradingBot:
         # Calculate true portfolio value
         portfolio_info = self.get_current_portfolio_value(current_price)
         
-        print(f"🎯 Position Type: {status['position_type']}")
-        print(f"💰 Entry Price: ${status['entry_price']:,.2f}")
-        print(f"📍 Current Price: ${status['current_price']:,.2f}")
-        print(f"📊 Quantity: {status['quantity']:.6f} BTC")
-        print(f"⏰ Time in Position: {hours}h {minutes}m")
+        self.log_manager.log_console(f"🎯 Position Type: {status['position_type']}")
+        self.log_manager.log_console(f"💰 Entry Price: ${status['entry_price']:,.2f}")
+        self.log_manager.log_console(f"📍 Current Price: ${status['current_price']:,.2f}")
+        self.log_manager.log_console(f"📊 Quantity: {status['quantity']:.6f} BTC")
+        self.log_manager.log_console(f"⏰ Time in Position: {hours}h {minutes}m")
         
         # P&L Information with Portfolio Update
-        print(f"\n💵 P&L ANALYSIS:")
-        print(f"  {pnl_symbol} Unrealized P&L: {pnl_color}${status['unrealized_pnl']:,.2f}")
-        print(f"  📊 P&L Percentage: {pnl_color}{status['pnl_percentage']:+.2f}%")
-        print(f"  💼 Base Portfolio: ${portfolio_info['base_balance']:,.2f}")
-        print(f"  💎 Total Portfolio Value: ${portfolio_info['total_value']:,.2f} (including unrealized)")
+        self.log_manager.log_console(f"\n💵 P&L ANALYSIS:")
+        self.log_manager.log_console(f"  {pnl_symbol} Unrealized P&L: {pnl_color}${status['unrealized_pnl']:,.2f}")
+        self.log_manager.log_console(f"  📊 P&L Percentage: {pnl_color}{status['pnl_percentage']:+.2f}%")
+        self.log_manager.log_console(f"  💼 Base Portfolio: ${portfolio_info['base_balance']:,.2f}")
+        self.log_manager.log_console(f"  💎 Total Portfolio Value: ${portfolio_info['total_value']:,.2f} (including unrealized)")
         
         # Stop Loss Information
         sl_symbol = "🔴" if status['position_type'] == 'LONG' else "🟢"
-        print(f"\n🛡️ STOP LOSS ANALYSIS:")
-        print(f"  🎯 Original SL: ${status['stop_loss']:,.2f}")
-        print(f"  {sl_symbol} Trailing SL: ${status['trailing_sl']:,.2f}")
-        print(f"  📏 SL Distance: {status['sl_percentage']:+.2f}%")
+        self.log_manager.log_console(f"\n🛡️ STOP LOSS ANALYSIS:")
+        self.log_manager.log_console(f"  🎯 Original SL: ${status['stop_loss']:,.2f}")
+        self.log_manager.log_console(f"  {sl_symbol} Trailing SL: ${status['trailing_sl']:,.2f}")
+        self.log_manager.log_console(f"  📏 SL Distance: {status['sl_percentage']:+.2f}%")
         
         # Take Profit
-        print(f"\n🎯 TAKE PROFIT:")
-        print(f"  💎 Target Price: ${status['take_profit']:,.2f}")
+        self.log_manager.log_console(f"\n🎯 TAKE PROFIT:")
+        self.log_manager.log_console(f"  💎 Target Price: ${status['take_profit']:,.2f}")
         
         # Technical Indicators
-        print(f"\n📈 TECHNICAL INDICATORS:")
-        print(f"  🔵 EMA9: ${status['ema9']:,.2f}")
-        print(f"  🔴 EMA20: ${status['ema20']:,.2f}")
-        print(f"  📊 ATR: ${status['atr']:,.2f}")
+        self.log_manager.log_console(f"\n📈 TECHNICAL INDICATORS:")
+        self.log_manager.log_console(f"  🔵 EMA9: ${status['ema9']:,.2f}")
+        self.log_manager.log_console(f"  🔴 EMA20: ${status['ema20']:,.2f}")
+        self.log_manager.log_console(f"  📊 ATR: ${status['atr']:,.2f}")
         
         # Show swing levels from position data if available
         if hasattr(self.current_position, 'swing_low') and self.current_position.swing_low:
-            print(f"  📉 Swing Low: ${self.current_position.swing_low:,.2f}")
+            self.log_manager.log_console(f"  📉 Swing Low: ${self.current_position.swing_low:,.2f}")
         if hasattr(self.current_position, 'swing_high') and self.current_position.swing_high:
-            print(f"  📈 Swing High: ${self.current_position.swing_high:,.2f}")
+            self.log_manager.log_console(f"  📈 Swing High: ${self.current_position.swing_high:,.2f}")
         
         # EMA Analysis
         ema_trend = "BULLISH" if status['ema9'] > status['ema20'] else "BEARISH"
         price_vs_ema9 = "ABOVE" if status['current_price'] > status['ema9'] else "BELOW"
-        print(f"  📈 EMA Trend: {ema_trend}")
-        print(f"  📍 Price vs EMA9: {price_vs_ema9}")
+        self.log_manager.log_console(f"  📈 EMA Trend: {ema_trend}")
+        self.log_manager.log_console(f"  📍 Price vs EMA9: {price_vs_ema9}")
         
-        print(f"{'='*80}\n")
+        self.log_manager.log_console(f"{'='*80}\n")
         
         # Log to market data log
         self.log_manager.market_logger.info(
@@ -1079,24 +1109,24 @@ class PaperTradingBot:
     
     def run(self):
         """Main bot execution loop"""
-        print("Starting Paper Trading Bot...")
-        print("Press Ctrl+C to stop the bot")
+        self.log_manager.log_console("Starting Paper Trading Bot...")
+        self.log_manager.log_console("Press Ctrl+C to stop the bot")
         
         try:
             while True:
                 try:
                     # Fetch historical data for strategy analysis
-                    print("Fetching market data...")
+                    self.log_manager.log_console("Fetching market data...")
                     df = self.data_feed.fetch_historical_candles(resolution="1h", count=100)
                     
                     if df is None or not self.data_feed.validate_data(df):
-                        print("Invalid market data, retrying in 60 seconds...")
+                        self.log_manager.log_console("Invalid market data, retrying in 60 seconds...")
                         time.sleep(60)
                         continue
                     
                     # Check for new candle (strategy signals and trailing SL updates)
                     if self.check_for_new_candle(df):
-                        print("New candle detected, analyzing for signals...")
+                        self.log_manager.log_console("New candle detected, analyzing for signals...")
                         signal_type, signal_data = self.analyze_market_data(df)
                         
                         if signal_type in ['BUY', 'SELL'] and signal_data:

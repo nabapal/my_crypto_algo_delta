@@ -1,0 +1,370 @@
+/* Custom Dashboard Styles */
+
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-bg: #212529;
+    --secondary-bg: #6c757d;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg) !important;
+}
+
+/* Status Indicators */
+.status-indicator {
+    font-size: 1.2rem;
+}
+
+.status-running {
+    color: var(--success-color) !important;
+}
+
+.status-stopped {
+    color: var(--danger-color) !important;
+}
+
+.status-connecting {
+    color: var(--warning-color) !important;
+}
+
+/* Metric Cards */
+.metric-card {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+
+.metric-value.positive {
+    color: var(--success-color);
+}
+
+.metric-value.negative {
+    color: var(--danger-color);
+}
+
+.metric-value.neutral {
+    color: var(--info-color);
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #adb5bd;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.metric-change {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.metric-change.positive {
+    color: var(--success-color);
+}
+
+.metric-change.negative {
+    color: var(--danger-color);
+}
+
+/* Position Cards */
+.position-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.position-card.short {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.position-card.long {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+}
+
+.position-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.position-type {
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+}
+
+.position-id {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Tables */
+.table-dark {
+    background-color: #343a40;
+}
+
+.table-dark td,
+.table-dark th {
+    border-color: #495057;
+}
+
+.pnl-positive {
+    color: var(--success-color) !important;
+    font-weight: bold;
+}
+
+.pnl-negative {
+    color: var(--danger-color) !important;
+    font-weight: bold;
+}
+
+/* Log Container */
+.log-container {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #495057;
+    border-radius: 8px;
+}
+
+#log-content {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    height: 100%;
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Log Types */
+.list-group-item-action.active {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+
+.list-group-item-action {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.list-group-item-action:hover {
+    background-color: #5a6268;
+    color: #fff;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.nav-tabs .nav-link {
+    color: #adb5bd;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.nav-tabs .nav-link:hover {
+    color: #fff;
+    background-color: rgba(13, 110, 253, 0.7);
+}
+
+/* Cards */
+.card.bg-secondary {
+    background-color: #495057 !important;
+    border-color: #6c757d;
+}
+
+.card-header {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    border-bottom-color: #6c757d;
+}
+
+/* Toast Notifications */
+.toast {
+    background-color: #495057;
+    border: 1px solid #6c757d;
+    color: #fff;
+}
+
+.toast-header {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: #6c757d;
+    color: #fff;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    animation: slideInUp 0.3s ease-out;
+}
+
+/* Connection Status */
+#connection-status .text-success {
+    color: var(--success-color) !important;
+}
+
+#connection-status .text-danger {
+    color: var(--danger-color) !important;
+}
+
+#connection-status .text-warning {
+    color: var(--warning-color) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .metric-card {
+        margin-bottom: 0.75rem;
+    }
+    
+    .metric-value {
+        font-size: 1.5rem;
+    }
+    
+    .position-card {
+        padding: 1rem;
+    }
+    
+    .log-container {
+        height: 300px;
+    }
+    
+    #log-content {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    
+    .metric-value {
+        font-size: 1.3rem;
+    }
+    
+    .log-container {
+        height: 250px;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #343a40;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6c757d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+}
+
+/* Performance Charts */
+.performance-metric {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.performance-metric h6 {
+    color: #adb5bd;
+    margin-bottom: 0.5rem;
+}
+
+.performance-metric .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Button Styles */
+.btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Real-time Indicators */
+.real-time-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: pulse 2s infinite;
+}
